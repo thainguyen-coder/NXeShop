@@ -1,0 +1,50 @@
+﻿@model IEnumerable<NXeShop.Models.Role>
+
+@{
+    ViewData["Title"] = "Quản lý quyền truy cập";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">#</th>
+            </tr>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoleId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoleName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <a class="btn btn-secondary btn-tone m-r-5" asp-action="Details" asp-route-id="@item.RoleId">View</a> |
+                            <a class="btn btn-primary btn-tone m-r-5" asp-action="Edit" asp-route-id="@item.RoleId">Edit</a> |
+                            <a class="btn btn-success btn-tone m-r-5" asp-action="Delete" asp-route-id="@item.RoleId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
