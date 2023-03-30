@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NXeShop.Models;
 
@@ -9,9 +10,13 @@ namespace NXeShop.Areas.Admin.Controllers
     {
         private readonly EWEBBANHANGDBDBMARKETSMDFContext _context;
 
-        public RolesController(EWEBBANHANGDBDBMARKETSMDFContext context)
+        // Add notyF
+        public INotyfService _notyfService { get; set; }
+
+        public RolesController(EWEBBANHANGDBDBMARKETSMDFContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
         public async Task<IActionResult> Index()
         {
@@ -46,6 +51,7 @@ namespace NXeShop.Areas.Admin.Controllers
             if (ModelState.IsValid) { 
                 _context.Roles.Add(role);
                 await _context.SaveChangesAsync();
+                _notyfService.Success("Tạo mới thành công!");
                 return RedirectToAction("Index");
             }
             return View(role);
@@ -78,10 +84,12 @@ namespace NXeShop.Areas.Admin.Controllers
                 {
                     _context.Update(role);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Cập nhật thành công!");
                 }
                 catch(Exception ex)
                 {
-                   Console.WriteLine(ex.ToString());
+                    _notyfService.Success("Có lỗi xảy ra!");
+                    Console.WriteLine(ex.ToString());
                 }
 
                 return RedirectToAction("Index");
@@ -120,6 +128,7 @@ namespace NXeShop.Areas.Admin.Controllers
 
             _context.Roles.Remove(role);
             await _context.SaveChangesAsync();
+            _notyfService.Success("Xóa quyền truy cập thành công!");
             return RedirectToAction("Index");
         }
 

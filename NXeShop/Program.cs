@@ -17,7 +17,7 @@ builder.Services.AddDbContext<EWEBBANHANGDBDBMARKETSMDFContext>(x => x.UseSqlSer
 builder.Services.AddNotyf(config => 
                             { config.DurationInSeconds = 10; 
                                 config.IsDismissable = true; 
-                                config.Position = NotyfPosition.BottomRight; });
+                                config.Position = NotyfPosition.TopRight; });
 
 var app = builder.Build();
 

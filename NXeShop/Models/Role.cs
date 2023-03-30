@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NXeShop.Models
 {
@@ -10,7 +11,7 @@ namespace NXeShop.Models
             Accounts = new HashSet<Account>();
         }
 
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
         public string? RoleName { get; set; }
         public string? Description { get; set; }
 
